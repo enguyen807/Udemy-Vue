@@ -1,0 +1,49 @@
+<html>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="exercise">
+    <!-- 1) Fill the <p> below with your Name and Age - using Interpolation -->
+    <!-- Pretty Straightforward I just did a regular Interpolation  -->
+    <p>VueJS is pretty cool - {{ name }} {{ age }}</p>
+    <!-- 2) Output your age, multiplied by 3 -->
+    <!-- Used the computed properties to do age calculation and return it  -->
+    <p>{{ OutPutAge }}</p>
+    <!-- 3) Call a function to output a random float between 0 and 1 (Math.random()) -->
+    <!-- Wanted to challenge myself a little bit by using a button to randomize number. -->
+    <p>{{ rdomNum }} <button id="randomize number" v-on:click="RandomNumber">Random Number</button></p>
+    <!-- 4) Search any image on Google and output it here by binding the "src" attribute -->
+    <div>
+        <img style="width:100px;height:100px" :src="imageLink">
+    </div>
+    <!-- 5) Pre-Populate this input with your name (set the "value" attribute) -->
+    <div>
+        <input type="text" v-bind:value=`${name}`>
+    </div>
+</div>
+
+<script>
+new Vue({
+  el: '#exercise',
+  data: {
+    name: 'Eric Nguyen',
+    age: 24,
+    rdomNum: 0,
+    imageLink: 'https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_960_720.jpg'
+  },
+  methods: {
+    RandomNumber: function() {
+      this.rdomNum = Math.floor(Math.random()*100) + 1
+    }
+  },
+  computed: {
+    OutPutAge: function () {
+      return this.age * 3
+    }
+  }
+})
+
+
+
+</script>
+
+</html>
