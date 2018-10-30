@@ -1,49 +1,96 @@
-<html>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
 
-<div id="exercise">
-    <!-- 1) Fill the <p> below with your Name and Age - using Interpolation -->
-    <!-- Pretty Straightforward I just did a regular Interpolation  -->
-    <p>VueJS is pretty cool - {{ name }} {{ age }}</p>
-    <!-- 2) Output your age, multiplied by 3 -->
-    <!-- Used the computed properties to do age calculation and return it  -->
-    <p>{{ OutPutAge }}</p>
-    <!-- 3) Call a function to output a random float between 0 and 1 (Math.random()) -->
-    <!-- Wanted to challenge myself a little bit by using a button to randomize number. -->
-    <p>{{ rdomNum }} <button id="randomize number" v-on:click="RandomNumber">Random Number</button></p>
-    <!-- 4) Search any image on Google and output it here by binding the "src" attribute -->
-    <div>
-        <img style="width:100px;height:100px" :src="imageLink">
+<link rel="stylesheet" href="/publiccdnlib/bootstrap3/css/bootstrap.min.css">
+<script type="text/javascript" src="/publiccdnlib/VueJS/vue.js"></script>
+<script type="text/javascript" src="/publiccdnlib/jQuery/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="/publiccdnlib/es6-Promise/es6-promise.auto.js"></script> 
+<script type="text/javascript" src="/publiccdnlib/fetch/fetch.min.js"></script>
+<script type="text/javascript" src="/publiccdnlib/bootstrap3/js/bootstrap.min.js"></script>
+
+
+<!-- End loading scripts -->
+
+<style>
+    .appContainer {
+        width: 480px;
+        margin: auto;      
+    }
+
+    .panel-default>.panel-heading {
+        background-color: #e6f2fa;
+        
+        text-align:left;        
+    }
+
+    .panel-default>.panel-heading>.panel-title {
+        font-weight: bold;
+        color: #5e6a71;
+        width:100%;
+    }
+
+    .panel-heading .accordion-toggle:after {
+        font-family: 'Glyphicons Halflings';
+        content: "\e113";    
+        float: right;        
+        color: grey;         
+    }
+    .panel-heading .accordion-toggle.collapsed:after {
+        content: "\e114";    
+    }
+
+
+</style>
+
+<div id="app" class="appContainer">
+    <h3>General Ledger</h3>
+    <div class="panel-group" id="accordion" role="tablist">
+        <div class="panel panel-default" v-for="(folder, index) in srtedGLFolders" :key="folder.name">
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                    <a  role="button"  
+                        class="accordion-toggle collapsed"
+                        data-toggle="collapse" 
+                        data-parent="#accordion" 
+                        :href="'#'+(folder.name).replace(/\s+/g, '')"
+                    >
+                    {{ folder.name }}
+                    </a>
+                </h4>
+            </div>
+            <div :id="(folder.name).replace(/\s+/g, '')" 
+                 class="panel-collapse collapse" 
+            >
+                <div class="panel-body" v-for="file in folder.files" :key="file.name">
+                    <a :href="file.url" target="_blank">{{ file.name }}</a>
+                </div>
+            </div>
+        </div>  
     </div>
-    <!-- 5) Pre-Populate this input with your name (set the "value" attribute) -->
-    <div>
-        <input type="text" v-bind:value=`${name}`>
+    <h3>Accounts Payable</h3>
+    <div class="panel-group" id="accordion" role="tablist">
+        <div class="panel panel-default" v-for="(folder, index) in srtedAPFolders" :key="folder.name">
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                    <a  role="button"  
+                        class="accordion-toggle collapsed"
+                        data-toggle="collapse" 
+                        data-parent="#accordion" 
+                        :href="'#'+(folder.name).replace(/\s+/g, '')"
+                    >
+                    {{ folder.name }}
+                    </a>
+                </h4>
+            </div>
+            <div :id="(folder.name).replace(/\s+/g, '')" 
+                 class="panel-collapse collapse" 
+            >
+                <div class="panel-body" v-for="file in folder.files" :key="file.name">
+                    <a :href="file.url" target="_blank">{{ file.name }}</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<script src="/sites/AgencyAccountingServices/SiteAssets/Accordion/app.js?v=12.12"></script>
 <script>
-new Vue({
-  el: '#exercise',
-  data: {
-    name: 'Eric Nguyen',
-    age: 24,
-    rdomNum: 0,
-    imageLink: 'https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_960_720.jpg'
-  },
-  methods: {
-    RandomNumber: function() {
-      this.rdomNum = Math.floor(Math.random()*100) + 1
-    }
-  },
-  computed: {
-    OutPutAge: function () {
-      return this.age * 3
-    }
-  }
-})
-
-
-
 </script>
-
-</html>
